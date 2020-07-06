@@ -1,0 +1,11 @@
+
+*.html
+test-output
+test-output/
+test-output/old/softwaretestingmaterial/methods.html
+test-output/emailable-report.html
+target/
+.classpath
+.gitattributes
+.project
+.settings/
