@@ -9,7 +9,6 @@ import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -21,37 +20,32 @@ import org.testng.annotations.Test;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.grid.selenium.GridLauncherV3;
 
-public class FirstTest {
+public class FirstTestUsingBrowserStack {
 	private WebDriver driver;
-//Java -jar selenium-server-standalone-3.8.1.jar -role hub -port 1200
-	//hub - hjain@Jains:~/Downloads/grid$ Java -jar selenium-server-standalone-3.141.59.jar -role hub -port 1200
-	//~/Downloads/grid$ xattr -d com.apple.quarantine chromedriver 
-	//node setup java -Dwebdriver.chrome.driver="/Users/hjain/Downloads/grid/chromedriver" -jar selenium-server-standalone-3.8.1.jar -role node -hub http://192.168.0.7:1200/grid/register/
+	public static final String USERNAME = "harshitjain16";
+	public static final String AUTOMATE_KEY = "qsXftBrbp8umtC5Fq2UX";
+	public static final String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
+	
 
 	@BeforeClass
 	public void beforeClass() throws MalformedURLException {
-//		WebDriverManager.chromedriver().setup();
-//		driver = new ChromeDriver();
+		DesiredCapabilities caps = new DesiredCapabilities();
+        
+		caps.setCapability("os", "OS X");
+		caps.setCapability("os_version", "Catalina");
+		caps.setCapability("browser", "Chrome");
+		caps.setCapability("browser_version", "88.0");
+		caps.setCapability("name", "harshitjain16's First Test");
 		
-		
+		driver = new RemoteWebDriver(new URL(URL), caps);
 
-		DesiredCapabilities dc = new DesiredCapabilities();
-		dc.setBrowserName(BrowserType.CHROME);
-		dc.setPlatform(Platform.MAC);
-		
-		ChromeOptions options = new ChromeOptions();
-		options.merge(dc);
-
-//DesiredCapabilities dc = DesiredCapabilities.chrome();
-	driver = new RemoteWebDriver(new URL("http://192.168.0.7:1200/wd/hub"), options);	
-		
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.get("http://www.google.com");
 	}
 
 	@AfterClass
 	public void afterClass() {
-	//	driver.quit();
+		driver.quit();
 	}
 
 	@Test
